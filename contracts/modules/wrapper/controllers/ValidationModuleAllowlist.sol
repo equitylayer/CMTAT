@@ -73,11 +73,11 @@ abstract contract ValidationModuleAllowlist is
     /* ============ View functions which revert ============ */
     function _canMintBurnByModuleAndRevert(
         address account
-    ) internal view virtual override(ValidationModule) returns (bool) {
+    ) internal view virtual override(ValidationModule) {
         if(_isAllowlistEnabled() && !isAllowlisted(account)){
             revert ERC7943CannotTransact(account);
         } else {
-            return ValidationModule._canMintBurnByModuleAndRevert(account);
+            ValidationModule._canMintBurnByModuleAndRevert(account);
         }
     }
 

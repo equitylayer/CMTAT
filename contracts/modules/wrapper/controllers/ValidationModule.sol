@@ -55,18 +55,17 @@ abstract contract ValidationModule is
         address spender,
         address from,
         address to
-    ) internal view virtual returns (bool) {
+    ) internal view virtual {
         // Mint
         if(from == address(0)){
-            return _canMintBurnByModuleAndRevert(to);
+             _canMintBurnByModuleAndRevert(to);
         } // burn
         else if(to == address(0)){
-            return _canMintBurnByModuleAndRevert(from);
+            _canMintBurnByModuleAndRevert(from);
         } // Standard transfer
         else {
              _canTransferStandardByModuleAndRevert(spender, from, to);
         }
-        return true;
     }
 
     /**
@@ -93,7 +92,7 @@ abstract contract ValidationModule is
     */ 
     function _canMintBurnByModuleAndRevert(
         address target
-    ) internal view virtual returns (bool) {
+    ) internal view virtual {
         // can not mint or burn if the contract is deactivated
         _requireNotDeactivated();
         // cannot burn if target is frozen (used forcedTransfer instead if available)

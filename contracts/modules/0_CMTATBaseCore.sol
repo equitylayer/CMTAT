@@ -175,9 +175,7 @@ abstract contract CMTATBaseCore is
     */
     function transfer(address to, uint256 value) public virtual override returns (bool) {
         address from = _msgSender();
-        if (!ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to)) {
-            revert ERC7943CannotTransfer(from, to, value);
-        }
+        ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to);
         ERC20Upgradeable._transfer(from, to, value);
         return true;
     }
@@ -194,9 +192,7 @@ abstract contract CMTATBaseCore is
         override(ERC20Upgradeable, ERC20BaseModule)
         returns (bool)
     {
-        if (!ValidationModule._canTransferGenericByModuleAndRevert(_msgSender(), from, to)) {
-            revert ERC7943CannotTransfer(from, to, value);
-        }
+        ValidationModule._canTransferGenericByModuleAndRevert(_msgSender(), from, to);
         return ERC20BaseModule.transferFrom(from, to, value);
     }
 
@@ -240,13 +236,13 @@ abstract contract CMTATBaseCore is
 
     /* ==== Mint and Burn Operations ==== */
     function _mintOverride(address account, uint256 value) internal virtual override(ERC20MintModuleInternal) {
-        require(ValidationModule._canMintBurnByModuleAndRevert(account), ERC7943CannotTransfer(address(0), account, value) );
+        ValidationModule._canMintBurnByModuleAndRevert(account);
         ERC20MintModuleInternal._mintOverride(account, value);
     }
 
 
     function _burnOverride(address account, uint256 value) internal virtual override(ERC20BurnModuleInternal) {
-        require(ValidationModule._canMintBurnByModuleAndRevert(account), ERC7943CannotTransfer(account, address(0), value) );
+        ValidationModule._canMintBurnByModuleAndRevert(account);
         ERC20BurnModuleInternal._burnOverride(account, value);
     }
 
@@ -254,7 +250,7 @@ abstract contract CMTATBaseCore is
     * @dev Check if a minter transfer is valid
     */
     function _minterTransferOverride(address from, address to, uint256 value) internal virtual override(ERC20MintModuleInternal) {
-        require(ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to), ERC7943CannotTransfer(from, to, value) );
+        ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to);
         ERC20MintModuleInternal._minterTransferOverride(from, to, value);
     }
 

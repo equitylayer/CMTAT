@@ -173,8 +173,8 @@ abstract contract CMTATBaseAllowlist is
 
     function _canMintBurnByModuleAndRevert(
         address account
-    ) internal view virtual override(ValidationModuleAllowlist, ValidationModule) returns (bool) {
-        return ValidationModuleAllowlist._canMintBurnByModuleAndRevert(account);
+    ) internal view virtual override(ValidationModuleAllowlist, ValidationModule) {
+        ValidationModuleAllowlist._canMintBurnByModuleAndRevert(account);
     }
 
   function _canTransact(address account) internal view virtual override(ValidationModuleAllowlist, ValidationModule) returns (bool allowed) {
@@ -199,9 +199,7 @@ abstract contract CMTATBaseAllowlist is
 
     function _checkTransferred(address spender, address from, address to, uint256 value) internal virtual override(CMTATBaseCommon) {
         CMTATBaseCommon._checkTransferred(spender, from, to, value);
-        if (!ValidationModule._canTransferGenericByModuleAndRevert(spender, from, to)) {
-            revert ERC7943CannotTransfer(from, to, value);
-        }
+        ValidationModule._canTransferGenericByModuleAndRevert(spender, from, to);
     } 
 
 

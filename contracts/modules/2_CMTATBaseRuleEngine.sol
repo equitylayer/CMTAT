@@ -175,6 +175,6 @@ abstract contract CMTATBaseRuleEngine is
     /* ==== Transfer/mint/burn restriction ==== */
     function _checkTransferred(address spender, address from, address to, uint256 value) internal virtual override(CMTATBaseCommon) {
         CMTATBaseCommon._checkTransferred(spender, from, to, value);
-        require(ValidationModuleRuleEngine._transferred(spender, from, to, value), ERC7943CannotTransfer(from, to, value));
+        ValidationModuleRuleEngine._transferred(spender, from, to, value);
     } 
 }

@@ -89,7 +89,7 @@ abstract contract DocumentEngineModule is Initializable, IDocumentEngineModule {
         IERC1643 documentEngine_
     ) public virtual override(IDocumentEngineModule) onlyDocumentManager {
         DocumentEngineModuleStorage storage $ = _getDocumentEngineModuleStorage();
-        require($._documentEngine != documentEngine_, CMTAT_DocumentEngineModule_SameValue());
+        require(address($._documentEngine) != address(documentEngine_), CMTAT_DocumentEngineModule_SameValue());
         _setDocumentEngine($, documentEngine_);
     }
 

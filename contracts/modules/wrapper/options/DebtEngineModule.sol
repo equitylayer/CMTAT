@@ -46,7 +46,7 @@ abstract contract DebtEngineModule is IDebtEngineModule {
         IDebtEngine debtEngine_
     ) public virtual override(IDebtEngineModule) onlyDebtEngineManager {
         DebtModuleStorage storage $ = _getDebtEngineModuleStorage();
-        require($._debtEngine != debtEngine_, CMTAT_DebtEngineModule_SameValue());
+        require(address($._debtEngine) != address(debtEngine_), CMTAT_DebtEngineModule_SameValue());
         _setDebtEngine($, debtEngine_);
     }
 

@@ -29,19 +29,13 @@ contract ERC721MockUpgradeable is ERC721Upgradeable, CMTATBaseGeneric {
    * @param tokenId NFT tokenId
    */
   function mint(address to, uint256 tokenId) public {
-    require(
-      _canMintBurnByModuleAndRevert(to),
-      ERC7943CannotTransfer(address(0), to, tokenId)
-    );
+    _canMintBurnByModuleAndRevert(to);
     ERC721Upgradeable._mint(to, tokenId);
   }
 
   function burn(uint256 tokenId) external {
     address currentOwner = ownerOf(tokenId);
-    require(
-      _canMintBurnByModuleAndRevert(currentOwner),
-      ERC7943CannotTransfer(currentOwner, address(0), tokenId)
-    );
+    _canMintBurnByModuleAndRevert(currentOwner);
     ERC721Upgradeable._burn( tokenId);
   }
 
@@ -51,7 +45,7 @@ contract ERC721MockUpgradeable is ERC721Upgradeable, CMTATBaseGeneric {
     uint256 tokenId,
     bytes memory data
   ) public virtual override {
-    require(_canTransferGenericByModuleAndRevert(msg.sender, from, to), ERC7943CannotTransfer(from, to, tokenId));
+    _canTransferGenericByModuleAndRevert(msg.sender, from, to);
     ERC721Upgradeable.safeTransferFrom(from, to, tokenId, data);
   }
 
@@ -60,7 +54,7 @@ contract ERC721MockUpgradeable is ERC721Upgradeable, CMTATBaseGeneric {
     address to,
     uint256 tokenId
   ) public override {
-    require(_canTransferGenericByModuleAndRevert(msg.sender, from, to), ERC7943CannotTransfer(from, to, tokenId));
+    _canTransferGenericByModuleAndRevert(msg.sender, from, to);
     ERC721Upgradeable.transferFrom(from, to, tokenId);
   }
 

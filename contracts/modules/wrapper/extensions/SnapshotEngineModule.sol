@@ -63,7 +63,7 @@ abstract contract SnapshotEngineModule is Initializable, ISnapshotEngineModule {
         ISnapshotEngine snapshotEngine_
     ) public virtual override(ISnapshotEngineModule) onlySnapshooter  {
         SnapshotEngineModuleStorage storage $ = _getSnapshotEngineModuleStorage();
-        require($._snapshotEngine != snapshotEngine_, CMTAT_SnapshotModule_SameValue());
+        require(address($._snapshotEngine) != address(snapshotEngine_), CMTAT_SnapshotModule_SameValue());
         _setSnapshotEngine($, snapshotEngine_);
     }
 
