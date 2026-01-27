@@ -583,7 +583,7 @@ All related interfaces are defined in the interface file [draft-IERC7943.sol](./
 | `ERC7943CannotTransfer`              | `CMTATBaseCore.sol`, `CMTATBaseAllowlist`, `CMTATBaseRuleEngine` |
 | `ERC7943InsufficientUnfrozenBalance` | [ERC20EnforcementModuleInternal.sol](./contracts/modules/internal/ERC20EnforcementModuleInternal.sol) |
 | **Event**                            | [ERC20EnforcementModuleInternal.sol](./contracts/modules/internal/ERC20EnforcementModuleInternal.sol) |
-|                                      |                                                              |
+| `Frozen`                             |                                                              |
 | `ForcedTransfer`                     | [ERC20EnforcementModuleInternal.sol](./contracts/modules/internal/ERC20EnforcementModuleInternal.sol) |
 
 

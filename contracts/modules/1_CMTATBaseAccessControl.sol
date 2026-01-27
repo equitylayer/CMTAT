@@ -8,11 +8,11 @@ import { IERC165 } from "@openzeppelin/contracts/interfaces/IERC165.sol";
 // Security
 import {AccessControlUpgradeable, AccessControlModule} from "./wrapper/security/AccessControlModule.sol";
 // Core
-import {ERC20BurnModule, ERC20BurnModuleInternal} from "./wrapper/core/ERC20BurnModule.sol";
-import {ERC20MintModule, ERC20MintModuleInternal} from "./wrapper/core/ERC20MintModule.sol";
+import {ERC20BurnModule} from "./wrapper/core/ERC20BurnModule.sol";
+import {ERC20MintModule} from "./wrapper/core/ERC20MintModule.sol";
 // Extensions
 import {ExtraInformationModule} from "./wrapper/extensions/ExtraInformationModule.sol";
-import {ERC20EnforcementModule, ERC20EnforcementModuleInternal} from "./wrapper/extensions/ERC20EnforcementModule.sol";
+import {ERC20EnforcementModule} from "./wrapper/extensions/ERC20EnforcementModule.sol";
 import {DocumentEngineModule,  IERC1643} from "./wrapper/extensions/DocumentEngineModule.sol";
 import {SnapshotEngineModule} from "./wrapper/extensions/SnapshotEngineModule.sol";
 // options
@@ -44,9 +44,10 @@ abstract contract CMTATBaseAccessControl is
      * @dev 
      * We can not use type(IERC5679).interfaceId instead of 0xd0017968
      * because IERC5679 inherits from two interfaces (IERC5679Burn and Mint)
+     * 0x29388973 is the interfaceId of ERC-7943
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlUpgradeable, IERC165) returns (bool) {
-        return interfaceId == 0xd0017968 || AccessControlUpgradeable.supportsInterface(interfaceId);
+        return interfaceId == 0xd0017968 || interfaceId == 0x29388973 || AccessControlUpgradeable.supportsInterface(interfaceId);
     }
 
 

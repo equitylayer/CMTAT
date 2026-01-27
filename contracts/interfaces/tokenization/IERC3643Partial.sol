@@ -206,9 +206,9 @@ interface IERC3643Mint{
      * @notice Batch version of {mint}, allowing multiple mint operations in a single transaction.
      * @dev
      * For each mint action:
-     *   - Emits a {Mint} event.
      *   - Emits a {Transfer} event with `from` set to the zero address.
-     * - Requires that `accounts` and `values` arrays have the same length.
+     * Not part of ERC-3643: emits also a {BatchMint} event
+     *- Requires that `accounts` and `values` arrays have the same length.
      * - None of the addresses in `accounts` can be the zero address.
      * - Be cautious with large arrays as the transaction may run out of gas.
      * @param accounts The list of recipient addresses for the minted tokens.
@@ -244,7 +244,8 @@ interface IERC3643Burn{
      * - Batch version of {burn}
      * - Executes the burn operation for each account in the `accounts` array, using corresponding amounts in the `values` array.
      * - Emits a `Transfer` event for each burn (with `to` set to `address(0)`).
-     * - This operation is gas-intensive and may fail if the number of accounts (`accounts.length`) is too large, causing an "out of gas" error.
+     *  Not part of ERC-3643: emits also a {BatchBurn} event
+     *- This operation is gas-intensive and may fail if the number of accounts (`accounts.length`) is too large, causing an "out of gas" error.
      * - Use with caution to avoid unnecessary transaction fees.
      * Requirement:
      *  - `accounts` and `values` must have the same length

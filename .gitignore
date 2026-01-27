@@ -19,3 +19,6 @@ cache
 mcore_*
 #secrets
 .env
+
+#ackee wake
+.wake

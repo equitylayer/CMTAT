@@ -161,8 +161,9 @@ abstract contract CMTATBaseCore is
     /**
      * @inheritdoc AccessControlUpgradeable
      * @dev 
-     * We can not use type(IERC5679).interfaceId instead of 0xd0017968
+     * We can not use type(IERC5679).interfaceId, we use instead of 0xd0017968
      * because IERC5679 inherits from two interfaces (IERC5679Burn and Mint)
+     * Core version does not implement in its integrality ERC-7943 (0x29388973)
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlUpgradeable, IERC165) returns (bool) {
         return interfaceId == 0xd0017968 || AccessControlUpgradeable.supportsInterface(interfaceId);

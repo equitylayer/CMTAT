@@ -52,7 +52,7 @@ describe('CMTAT UUPS - Manual Deployment', function () {
       [ZERO_ADDRESS]
     )
   })
-  // Core
+  // Core 
   VersionModuleCommon()
   PauseModuleCommon()
   ERC20BaseModuleCommon()
