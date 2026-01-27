@@ -193,8 +193,8 @@ abstract contract CMTATBaseAllowlist is
         address spender,
         address from,
         address to
-    ) internal view virtual override(ValidationModule, ValidationModuleAllowlist) returns (bool) {
-        return ValidationModuleAllowlist._canTransferStandardByModuleAndRevert(spender, from, to);
+    ) internal view virtual override(ValidationModule, ValidationModuleAllowlist) {
+        ValidationModuleAllowlist._canTransferStandardByModuleAndRevert(spender, from, to);
     }
 
     function _checkTransferred(address spender, address from, address to, uint256 value) internal virtual override(CMTATBaseCommon) {

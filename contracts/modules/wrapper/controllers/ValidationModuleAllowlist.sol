@@ -85,9 +85,9 @@ abstract contract ValidationModuleAllowlist is
         address spender,
         address from,
         address to
-    ) internal view virtual override(ValidationModule) returns (bool) {
+    ) internal view virtual override(ValidationModule) {
         _canTransferStandardByModuleAllowlistAndRevert(spender, from, to);
-        return ValidationModule._canTransferStandardByModuleAndRevert(spender, from, to);
+       ValidationModule._canTransferStandardByModuleAndRevert(spender, from, to);
     }
 
     function _canTransferStandardByModuleAllowlistAndRevert(

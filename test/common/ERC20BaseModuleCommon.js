@@ -44,9 +44,9 @@ function ERC20BaseModuleCommon () {
     })
   })
 
-  context('ERC20 approval', function () {
+  context('ERC20 approval / approve', function () {
     it('testCannotApproveIfPaused', async function () {
-      if(!this.erc1404){
+      if(!this.core){
         await this.cmtat.connect(this.admin).pause();
         await expect(
           this.cmtat.connect(this.admin).approve(this.address1, 20n)

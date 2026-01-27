@@ -297,3 +297,8 @@ npx hardhat run scripts/deploy-cmtat-standalone.js
 npx hardhat run scripts/deploy-cmtat-standalone-light.js
 ```
 
+## Claude
+
+This project contains a directory `.claude` and a CLAUDE.md file to help using Claude on CMTAT codebase
+
+See [code.claude.com](https://code.claude.com)

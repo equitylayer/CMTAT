@@ -64,8 +64,9 @@ abstract contract ValidationModule is
             return _canMintBurnByModuleAndRevert(from);
         } // Standard transfer
         else {
-            return _canTransferStandardByModuleAndRevert(spender, from, to);
+             _canTransferStandardByModuleAndRevert(spender, from, to);
         }
+        return true;
     }
 
     /**
@@ -93,16 +94,13 @@ abstract contract ValidationModule is
     function _canMintBurnByModuleAndRevert(
         address target
     ) internal view virtual returns (bool) {
-        if(PauseModule.deactivated()){
-            // can not mint or burn if the contract is deactivated
-            revert EnforcedDeactivation();
-        }
+        // can not mint or burn if the contract is deactivated
+        _requireNotDeactivated();
         // cannot burn if target is frozen (used forcedTransfer instead if available)
         // cannot mint if target is frozen
         if(EnforcementModule.isFrozen(target)){
             revert ERC7943CannotTransact(target);
         }
-        return true;
     }
 
     /**
@@ -159,7 +157,7 @@ abstract contract ValidationModule is
         address spender,
         address from,
         address to
-    ) internal view virtual returns (bool) {
+    ) internal view virtual{
         /**
          * We don't check the deactivate status because
          * the contract will be in the pause state if deactivated
@@ -167,7 +165,6 @@ abstract contract ValidationModule is
          */
         _requireNotPaused();
         _canTransferisFrozenAndRevert(spender, from, to);
-        return true;
     }
 
 
