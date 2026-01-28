@@ -103,6 +103,7 @@ The CMTAT was initially designed for the digitalization of company shares. For S
 
 CMTAT is referenced in several reports. Although these reports do not reflect the most recent version, they already provide a good indication of potential use cases. The insights from these reports have also contributed to numerous improvements in CMTAT.
 
+- [University of Toronto - Blockchain Meets Securities: A Scalable Tokenization Framework](https://dl.acm.org/doi/10.1145/3777461) / [pdf](https://www.eecg.utoronto.ca/~veneris/DLTACM25.pdf) (2025), page 22
 - [Forum - Asset Tokenization in Financial Markets: The Next Generation of Value Exchange (2025)](https://reports.weforum.org/docs/WEF_Asset_Tokenization_in_Financial_Markets_2025.pdf), page 38
 - [King's Business School/Rhys Bidder - What Is The Future Of Stablecoins, And How Do We Get There? (2025)](https://www.kcl.ac.uk/business/assets/PDF/qcgbf-working-papers/taking-the-next-step-v5.pdf), page 33
 - [Nethermind - Tokenization Standards: The Missing Link for Institutional Adoption (2025)](https://www.nethermind.io/blog/tokenization-standards-the-missing-link-for-institutional-adoption): page 2, 16, 19, 33-36 & 39
@@ -2766,7 +2767,7 @@ A code coverage is available in [index.html](./doc/test/coverage/index.html).
 
 ## Usage
 
-More details are available in the file [USAGE.md](./doc/USAGE.md)
+More details are available in the file
 
 ### Solidity style guideline
 
