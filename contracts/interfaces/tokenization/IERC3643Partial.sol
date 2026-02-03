@@ -9,7 +9,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC7943ERC20Enforcement} from "./draft-IERC7943.sol";
+import {IERC7943FungibleEnforcement} from "./draft-IERC7943.sol";
 
 /**
  * @title IERC3643Pause
@@ -168,7 +168,7 @@ interface IERC3643Enforcement {
  * @notice Interface for enforcing partial token freezes and forced transfers, typically used in compliance-sensitive ERC-1400 scenarios.
  * @dev For event definitions, see {IERC7551ERC20Enforcement}.
  */
-interface IERC3643ERC20Enforcement is IERC7943ERC20Enforcement {
+interface IERC3643ERC20Enforcement is IERC7943FungibleEnforcement {
     /* ============ State Functions ============ */
     /**
      * @notice Freezes a specific amount of tokens for a given account.

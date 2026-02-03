@@ -6,7 +6,7 @@ pragma solidity ^0.8.20;
 * @notice Enforcement Interface for ERC-20 based implementations common with ERC-3643 interface.
 * 
 */
-interface IERC7943ERC20Enforcement {
+interface IERC7943FungibleEnforcement {
     /* ============ View Functions ============ */
     /** 
     * @notice Checks the frozen status/amount.
@@ -49,7 +49,7 @@ interface IERC7943ERC20Enforcement {
     function forcedTransfer(address from, address to, uint256 amount) external returns(bool result);
 }
 
-interface IERC7943ERC20EnforcementSpecific {
+interface IERC7943FungibleEnforcementSpecific {
     /** 
     * @notice Changes the frozen status of `amount` tokens belonging to `account`.
     * This overwrites the current value, similar to an `approve` function.
@@ -110,7 +110,7 @@ interface IERC7943FungibleTransferError {
     error ERC7943CannotTransfer(address from, address to, uint256 amount);
 }
 
-interface IERC7943FungibleTransactCheck{
+interface IERC7943TransactCheck{
      /// @notice Checks if a specific account is allowed to transact according to token rules.
     /// @dev This is often used for allowlist/KYC/KYB/AML checks.
     /// @param account The address to check.

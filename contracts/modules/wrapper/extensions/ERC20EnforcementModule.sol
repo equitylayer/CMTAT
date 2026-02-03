@@ -5,16 +5,16 @@ pragma solidity ^0.8.20;
 /* ==== Module === */
 import {ERC20EnforcementModuleInternal} from "../../internal/ERC20EnforcementModuleInternal.sol";
 /* ==== Tokenization === */
-import {IERC3643ERC20Enforcement, IERC7943ERC20Enforcement} from "../../../interfaces/tokenization/IERC3643Partial.sol";
+import {IERC3643ERC20Enforcement, IERC7943FungibleEnforcement} from "../../../interfaces/tokenization/IERC3643Partial.sol";
 import {IERC7551ERC20Enforcement, IERC7551ERC20EnforcementEvent} from "../../../interfaces/tokenization/draft-IERC7551.sol";
-import {IERC7943ERC20EnforcementSpecific} from "../../../interfaces/tokenization/draft-IERC7943.sol";
+import {IERC7943FungibleEnforcementSpecific} from "../../../interfaces/tokenization/draft-IERC7943.sol";
 /**
  * @title ERC20Enforcement module.
  * @dev 
  *
  * ERC-20 Enforcement related functions (freeze tokens, forced transfer)
  */
-abstract contract ERC20EnforcementModule is ERC20EnforcementModuleInternal, IERC7551ERC20Enforcement, IERC3643ERC20Enforcement, IERC7943ERC20EnforcementSpecific{
+abstract contract ERC20EnforcementModule is ERC20EnforcementModuleInternal, IERC7551ERC20Enforcement, IERC3643ERC20Enforcement, IERC7943FungibleEnforcementSpecific {
     /* ============ State Variables ============ */
     bytes32 public constant ERC20ENFORCER_ROLE = keccak256("ERC20ENFORCER_ROLE");
 
@@ -39,7 +39,7 @@ abstract contract ERC20EnforcementModule is ERC20EnforcementModuleInternal, IERC
     *
     * @inheritdoc IERC7551ERC20Enforcement
     */
-    function getFrozenTokens(address account) public override(IERC7551ERC20Enforcement, IERC7943ERC20Enforcement) view virtual returns (uint256 frozenBalance_) {
+    function getFrozenTokens(address account) public override(IERC7551ERC20Enforcement, IERC7943FungibleEnforcement) view virtual returns (uint256 frozenBalance_) {
         return _getFrozenTokens(account);
      }
 
@@ -66,12 +66,12 @@ abstract contract ERC20EnforcementModule is ERC20EnforcementModuleInternal, IERC
 
     /**
     *
-    * @inheritdoc IERC7943ERC20Enforcement
+    * @inheritdoc IERC7943FungibleEnforcement
     * @custom:access-control
     * - Protected by `onlyForcedTransferManager`.
     */
     function forcedTransfer(address from, address to, uint256 value) 
-    public virtual override(IERC7943ERC20Enforcement) onlyForcedTransferManager returns (bool)  {
+    public virtual override(IERC7943FungibleEnforcement) onlyForcedTransferManager returns (bool)  {
        _forcedTransfer(from, to, value, "");
        return true;
     }
@@ -100,12 +100,12 @@ abstract contract ERC20EnforcementModule is ERC20EnforcementModuleInternal, IERC
 
     /**
     *
-    * @inheritdoc IERC7943ERC20EnforcementSpecific
+    * @inheritdoc IERC7943FungibleEnforcementSpecific
     * @custom:access-control
     * - Protected by `onlyERC20Enforcer `.
     */
     function setFrozenTokens(address account, uint256 value) 
-    public virtual override(IERC7943ERC20EnforcementSpecific) onlyERC20Enforcer 
+    public virtual override(IERC7943FungibleEnforcementSpecific) onlyERC20Enforcer 
     returns(bool result) {
          return _setFrozenTokens(account, value);
     }

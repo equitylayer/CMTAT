@@ -6,7 +6,7 @@ pragma solidity ^0.8.20;
 import {PauseModule}  from "../core/PauseModule.sol";
 import {EnforcementModule} from "../core/EnforcementModule.sol";
 import {IERC7943TransactError} from "../../../interfaces/tokenization/draft-IERC7943.sol";
-import {IERC7943FungibleTransactCheck} from "../../../interfaces/tokenization/draft-IERC7943.sol";
+import {IERC7943TransactCheck} from "../../../interfaces/tokenization/draft-IERC7943.sol";
 /**
  * @title Validation module
  * @dev 
@@ -17,13 +17,13 @@ abstract contract ValidationModule is
     PauseModule,
     EnforcementModule,
     IERC7943TransactError,
-    IERC7943FungibleTransactCheck
+    IERC7943TransactCheck
 {
 
     /*//////////////////////////////////////////////////////////////
                             PUBLIC FUNCTIONS
     //////////////////////////////////////////////////////////////*/
-    function canTransact(address account) public view virtual override(IERC7943FungibleTransactCheck) returns (bool allowed) {
+    function canTransact(address account) public view virtual override(IERC7943TransactCheck) returns (bool allowed) {
         return _canTransact(account);
     }
     /*//////////////////////////////////////////////////////////////
