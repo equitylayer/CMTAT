@@ -195,7 +195,8 @@ interface IERC3643Mint{
     /**
      * @notice Creates (`mints`) a specified `value` of tokens and assigns them to the `account`.
      * @dev Tokens are minted by transferring them from the zero address (`address(0)`).
-     * Emits a {Mint} event and a {Transfer} event with `from` set to `address(0)`.
+     * Emits a {Transfer} event with `from` set to `address(0)`.
+     * Not part of ERC-3643: emits also a {Mint} event
      * Requirement:
      * Account must not be the zero address.
      * @param account The address that will receive the newly minted tokens. 
@@ -228,6 +229,7 @@ interface IERC3643Burn{
      * @dev 
      * - Decreases the total token supply by the specified `value`.
      * - Emits a `Transfer` event to indicate the burn (with `to` set to `address(0)`).
+     * - Not part of ERC-3643: emits also a {Burn} event
      * - If `IERC364320Enforcement` is implemented:
      *   - If the account has insufficient free (unfrozen) tokens but a sufficient total balance, 
      *     frozen tokens are reduced to complete the burn.
