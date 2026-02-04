@@ -197,13 +197,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">164×</span>
+<span class="cline-any cline-yes">173×</span>
 <span class="cline-any cline-yes">148×</span>
 <span class="cline-any cline-yes">148×</span>
 <span class="cline-any cline-yes">28×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-yes">145×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,17 +214,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">164×</span>
+<span class="cline-any cline-yes">173×</span>
 <span class="cline-any cline-yes">28×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-yes">145×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66×</span>
+<span class="cline-any cline-yes">68×</span>
 <span class="cline-any cline-yes">18×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-yes">50×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,10 +232,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">696×</span>
+<span class="cline-any cline-yes">721×</span>
 <span class="cline-any cline-yes">8×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">688×</span>
+<span class="cline-any cline-yes">713×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,8 +244,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">89×</span>
-<span class="cline-any cline-yes">81×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">85×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,23 +253,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">89×</span>
-<span class="cline-any cline-yes">89×</span>
-<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">67×</span>
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">60×</span>
+<span class="cline-any cline-yes">59×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//SPDX-License-Identifier: MPL-2.0
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MPL-2.0
 &nbsp;
 pragma solidity ^0.8.20;
 &nbsp;
@@ -344,11 +344,11 @@ abstract contract ValidationModuleAllowlist is
     /* ============ View functions which revert ============ */
     function _canMintBurnByModuleAndRevert(
         address account
-    ) internal view virtual override(ValidationModule) returns (bool) {
+    ) internal view virtual override(ValidationModule) {
         if(_isAllowlistEnabled() &amp;&amp; !isAllowlisted(account)){
             revert ERC7943CannotTransact(account);
         } else {
-            return ValidationModule._canMintBurnByModuleAndRevert(account);
+            ValidationModule._canMintBurnByModuleAndRevert(account);
         }
     }
 &nbsp;
@@ -356,9 +356,9 @@ abstract contract ValidationModuleAllowlist is
         address spender,
         address from,
         address to
-    ) internal view virtual override(ValidationModule) returns (bool) {
+    ) internal view virtual override(ValidationModule) {
         _canTransferStandardByModuleAllowlistAndRevert(spender, from, to);
-        return ValidationModule._canTransferStandardByModuleAndRevert(spender, from, to);
+       ValidationModule._canTransferStandardByModuleAndRevert(spender, from, to);
     }
 &nbsp;
     function _canTransferStandardByModuleAllowlistAndRevert(
@@ -388,7 +388,7 @@ abstract contract ValidationModuleAllowlist is
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jan 12 2026 21:42:04 GMT+0100 (Central European Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 03 2026 18:09:05 GMT+0100 (Central European Standard Time)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

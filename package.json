@@ -33,6 +33,7 @@
     "test:enforcement": "npx hardhat test test/standard/modules/EnforcementModule.test.js test/proxy/modules/EnforcementModule.test.js",
     "test:erc20CrossChain": "npx hardhat test test/standard/modules/ERC20CrossChainModule.test.js test/proxy/modules/ERC20CrossChainModule.test.js",
     "test:metaTx": "npx hardhat test test/standard/modules/MetaTxModule.test.js test/proxy/modules/MetaTxModule.test.js",
+    "test:metaTxMsgData": "npx hardhat test test/standard/modules/MetaTxMsgData.test.js test/standard/modules/MetaTxMsgDataAllowlist.test.js test/standard/modules/MetaTxMsgDataERC1363.test.js",
     "test:proxy": "npx hardhat test test/proxy/general/factory/Beacon.test.js test/proxy/general/factory/Transparent.test.js test/proxy/general/factory/TransparentSalt.test.js test/proxy/general/Proxy.test.js test/proxy/general/UpgradeProxy.test.js test/proxy/general/UpgradeProxyUUPS.test.js",
     "test:deployment": "npx hardhat test test/deployment/deployment.test.js test/deployment/ERC1363/deploymentERC1363Proxy.test.js test/deployment/deploymentERC1363ProxyValidation.test.js test/deployment/ERC1363/deploymentERC1363Standalone.test.js",
     "test:deployment-light": "npx hardhat test test/deployment/light/deploymentStandaloneLight.test.js test/deployment/light/deploymentUpgradeableLight.test.js",

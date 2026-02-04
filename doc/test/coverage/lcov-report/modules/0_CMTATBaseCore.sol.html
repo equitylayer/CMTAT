@@ -25,9 +25,9 @@
         <span class='fraction'>31/31</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">84.21% </span>
+        <span class="strong">85.71% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>32/38</span>
+        <span class='fraction'>24/28</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>23/23</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">94.12% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>32/34</span>
+        <span class='fraction'>32/32</span>
       </div>
     </div>
   </div>
@@ -313,10 +313,7 @@
 268
 269
 270
-271
-272
-273
-274</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+271</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -483,6 +480,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -491,11 +489,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24×</span>
-<span class="cline-any cline-yes">24×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">12×</span>
 <span class="cline-any cline-yes">8×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -512,8 +508,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -752,8 +746,9 @@ abstract contract CMTATBaseCore is
     /**
      * @inheritdoc AccessControlUpgradeable
      * @dev 
-     * We can not use type(IERC5679).interfaceId instead of 0xd0017968
+     * We can not use type(IERC5679).interfaceId, we use instead of 0xd0017968
      * because IERC5679 inherits from two interfaces (IERC5679Burn and Mint)
+     * Core version does not implement in its integrality ERC-7943 (0x29388973)
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlUpgradeable, IERC165) returns (bool) {
         return interfaceId == 0xd0017968 || AccessControlUpgradeable.supportsInterface(interfaceId);
@@ -765,9 +760,7 @@ abstract contract CMTATBaseCore is
     */
     function transfer(address to, uint256 value) public virtual override returns (bool) {
         address from = _msgSender();
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to)) {
-            revert ERC7943CannotTransfer(from, to, value);
-        }
+        ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to);
         ERC20Upgradeable._transfer(from, to, value);
         return true;
     }
@@ -784,9 +777,7 @@ abstract contract CMTATBaseCore is
         override(ERC20Upgradeable, ERC20BaseModule)
         returns (bool)
     {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!ValidationModule._canTransferGenericByModuleAndRevert(_msgSender(), from, to)) {
-            revert ERC7943CannotTransfer(from, to, value);
-        }
+        ValidationModule._canTransferGenericByModuleAndRevert(_msgSender(), from, to);
         return ERC20BaseModule.transferFrom(from, to, value);
     }
 &nbsp;
@@ -830,13 +821,13 @@ abstract contract CMTATBaseCore is
 &nbsp;
     /* ==== Mint and Burn Operations ==== */
     function _mintOverride(address account, uint256 value) internal virtual override(ERC20MintModuleInternal) {
-        require(ValidationModule._canMintBurnByModuleAndRevert(account), ERC7943CannotTransfer(address(0), account, value) );
+        ValidationModule._canMintBurnByModuleAndRevert(account);
         ERC20MintModuleInternal._mintOverride(account, value);
     }
 &nbsp;
 &nbsp;
     function _burnOverride(address account, uint256 value) internal virtual override(ERC20BurnModuleInternal) {
-        require(ValidationModule._canMintBurnByModuleAndRevert(account), ERC7943CannotTransfer(account, address(0), value) );
+        ValidationModule._canMintBurnByModuleAndRevert(account);
         ERC20BurnModuleInternal._burnOverride(account, value);
     }
 &nbsp;
@@ -844,7 +835,7 @@ abstract contract CMTATBaseCore is
     * @dev Check if a minter transfer is valid
     */
     function _minterTransferOverride(address from, address to, uint256 value) internal virtual override(ERC20MintModuleInternal) {
-        require(ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to), ERC7943CannotTransfer(from, to, value) );
+        ValidationModule._canTransferGenericByModuleAndRevert(address(0), from, to);
         ERC20MintModuleInternal._minterTransferOverride(from, to, value);
     }
 &nbsp;
@@ -868,7 +859,7 @@ abstract contract CMTATBaseCore is
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jan 12 2026 21:42:04 GMT+0100 (Central European Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 03 2026 18:09:05 GMT+0100 (Central European Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
