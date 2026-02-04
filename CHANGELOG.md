@@ -49,21 +49,34 @@ Reference: [keepachangelog.com/en/1.1.0/](https://keepachangelog.com/en/1.1.0/)
 
 ### Added
 
-- Support of **ERC-7943** ([#337](https://github.com/CMTA/CMTAT/issues/337)).
+- Support of **ERC-7943** ([#337](https://github.com/CMTA/CMTAT/issues/337)):
+  - New functions `setFrozenTokens` and `canTransact` in the enforcement module.
+  - New error `ERC7943InsufficientUnfrozenBalance` in `ERC20EnforcementModule`.
+  - Emit ERC-7943 enforcement events (`TokensFrozen`, `TokensUnfrozen`).
+  - ERC-7943 ERC-165 interface ID support.
 - New dedicated deployment variant with **DebtEngine** support (see *Removed* section for rationale).
 - **IRuleEngine**: ERC-165 support added ([#342](https://github.com/CMTA/CMTAT/issues/342)) to enable interface compliance checks.
+  - New interface `IRuleEngineERC1404` inheriting from both `IERC1404Extend` and `IRuleEngine`.
+  - Library contracts `RuleEngineInterfaceId` and `ERC1404ExtendInterfaceId` to store ERC-165 interface IDs.
+  - Script to compute ERC-165 interface IDs (`npm run erc165:interfaceId`).
 - New base contract **CMTATBaseAccessControl** ([#350](https://github.com/CMTA/CMTAT/issues/350)).
+- Missing ERC-2771 integration tests for MetaTx module.
 
 ### Changed
 
 - **Transfer** now reverts with specific errors when the contract is paused or deactivated ([#338](https://github.com/CMTA/CMTAT/issues/338)) to improve error clarity.
 - The `approve` function now reverts when the contract is paused for all deployment variants except **Light** ([#335](https://github.com/CMTA/CMTAT/issues/335)).
 - Update Solidity version to [0.8.33](https://www.soliditylang.org/blog/2025/12/18/solidity-0.8.32-0.8.33-release-announcement) in Hardhat config file.
+- ValidationModule: Optimized code size by removing useless boolean returns
+- Updating contract address comparisons (Solidity v3.2.0).
+- Replaced CMTAT library errors with ERC-7943 specific errors.
+- Renamed custom errors for consistency.
 
 ### Removed
 
 - **DocumentEngine** and **SnapshotEngine** removed from constructors and initialization ([#343](https://github.com/CMTA/CMTAT/issues/343)) to simplify deployment and reduce bytecode size.
 - **DebtDeployment**: DebtEngine support removed and moved to a dedicated deployment variant ([#339](https://github.com/CMTA/CMTAT/issues/339)) to reduce contract size and enable additional modules in DebtEngine-based deployments.
+- CMTAT `Errors` library removed, errors are now defined in their respective interfaces.
 
 ## 3.1.0 - 20251209
 
