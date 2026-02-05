@@ -47,7 +47,7 @@
     "test:document": "npx hardhat test test/standard/modules/DocumentModule/DocumentModule.test.js test/standard/modules/DocumentModule/DocumentModuleConstructor.test.js test/proxy/modules/DocumentModule/DocumentModule.test.js test/proxy/modules/DocumentModule/DocumentModuleConstructor.test.js",
     "test:deployment-debtEngine": "npx hardhat test test/deployment/debtEngine/deploymentStandaloneDebtEngine.test.js test/deployment/debtEngine/deploymentUpgradeableDebtEngine.test.js",
     "test:erc20Enforcement": "npx hardhat test test/standard/modules/ERC20EnforcementModule.test.js test/proxy/modules/ERC20EnforcementModule.test.js",
-    "erc165:interfaceId": "npx hardhat run test/erc165InterfaceId.js"
+    "erc165:interfaceId": "npx hardhat run scripts/erc165InterfaceId.js"
   },
   "repository": {
     "type": "git",
