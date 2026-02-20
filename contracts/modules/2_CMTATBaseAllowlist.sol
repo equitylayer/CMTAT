@@ -110,6 +110,11 @@ abstract contract CMTATBaseAllowlist is
     //////////////////////////////////////////////////////////////*/
     /**
     * @dev revert if the contract is in pause state
+    * @notice Changing a non-zero allowance to another non-zero value carries the standard
+    * ERC-20 allowance race condition: a spender who observes the pending transaction can
+    * front-run it and spend the old allowance before the new value takes effect.
+    * To avoid this, callers should set the allowance to zero before assigning a new value
+    * if strict control over the total amount a spender can consume is required.
     */
     function approve(address spender, uint256 value) public virtual override(ERC20Upgradeable) whenNotPaused returns (bool) {
         return ERC20Upgradeable.approve(spender, value);
