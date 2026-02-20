@@ -32,7 +32,7 @@ CMTAT has been built with five main goals:
 
 4. Security by undergoing audits from trusted firms like [ADBK](https://abdk.consulting) and [Halborn](https://www.halborn.com), and by implementing a range of industry best practices.
    - Strong code statements coverage(~99.43%) with 3078 automated tests executed
-   - Run static analyzer ([Aderyn](https://github.com/Cyfrin/aderyn), [Slither](https://github.com/crytic/slither/tree/master)), as well as AI Auditing tool ([Nethermind Audit Agent](https://auditagent.nethermind.io)), before and after the audits
+   - Run static analyzer ([Aderyn](https://github.com/Cyfrin/aderyn), [Slither](https://github.com/crytic/slither/tree/master)), as well as AI Auditing tools ([Nethermind Audit Agent](https://auditagent.nethermind.io), [Wake Arena](https://ackee.xyz)), before and after the audits
    - RBAC Access Control to clearly separates the different roles and permissions
    
 5. Freedom of use through an open-source weak copyleft license ([MPL-2.0](https://www.mozilla.org/en-US/MPL/2.0/FAQ/))
@@ -2927,7 +2927,7 @@ Inside each contract, library or interface, use the following order:
 The project is built with [Hardhat](https://hardhat.org) and uses [OpenZeppelin](https://www.openzeppelin.com/solidity-contracts)
 
 - hardhat.config.js
-  - Solidity [v0.8.33](https://docs.soliditylang.org/en/v0.8.33/)
+  - Solidity [v0.8.34](https://docs.soliditylang.org/en/v0.8.34/)
   - EVM version: Prague (Pectra upgrade)
   - Optimizer: true, 200 runs
 
