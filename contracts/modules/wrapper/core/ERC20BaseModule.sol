@@ -78,6 +78,8 @@ abstract contract ERC20BaseModule is ERC20Upgradeable, IERC20Allowance, IERC3643
         bool result = ERC20Upgradeable.transferFrom(from, to, value);
         // The result will be normally always true because OpenZeppelin will revert in case of an error
         if (result) {
+            // emit Spend does not necessarily imply an allowance reduction
+            // This is the case if the allowance is set to uint256.max
             emit Spend(from, _msgSender(), value);
         }
 
