@@ -2234,7 +2234,7 @@ function burn(uint256 value) public virtual onlyBurnerFrom
 
 [CMTAT-CCIP](https://github.com/CMTA/CMTAT-CCIP) repository contains a collection of Foundry scripts designed to simplify and show deployment of a CMTAT token (v3.1.0) with CCIP contracts.
 
-It was build by [Nox Labs](https://github.com/Nox-Labs) in collaboration with CMTA and [Taurus](https://www.taurushq.com).
+It was built by [Nox Labs](https://github.com/Nox-Labs) in collaboration with CMTA and [Taurus](https://www.taurushq.com).
 
 #### Optimism superchain ERC-20 (ERC-7802)
 
@@ -2270,7 +2270,7 @@ Reference: [docs.optimism.io/interop/superchain-erc20](https://docs.optimism.io/
 
 Two OFT adapters (ERC-3643/ERC-7802) working with CMTAT are available here: [CMTAT-LayerZero](https://github.com/CMTA/CMTAT-LayerZero).
 
-It was build by [Nox Labs](https://github.com/Nox-Labs) in collaboration with CMTA and [Taurus](https://www.taurushq.com).
+It was built by [Nox Labs](https://github.com/Nox-Labs) in collaboration with CMTA and [Taurus](https://www.taurushq.com).
 
 CMTAT provides two main methods to burn and mint tokens.
 
@@ -2798,6 +2798,8 @@ Here are the reports produced by Mythril
 | v3.0.0  | Mythril currently generates a fatal error, impossible to run the tool |
 | v2.5.0  | [mythril-report-standalone.md](./doc/audits/tools/mythril/v2.5.0/myth_standalone_report.md)<br />[mythril-report-proxy.md](./doc/audits/tools/mythril/v2.5.0/myth_proxy_report.md)<br /> |
 
+#### [Nethermind Audit Agent](https://auditagent.nethermind.io)
+
 Here are the reports produced by [Nethermind Audit Agent](https://auditagent.nethermind.io):
 
 | Version    | File                                                         |
@@ -2805,7 +2807,49 @@ Here are the reports produced by [Nethermind Audit Agent](https://auditagent.net
 | v3.1.0     | [nethermind-audit-agent/v3.1.0](./doc/audits/tools/nethermind-audit-agent/v3.1.0) |
 | v3.0.0-rc5 | [nethermind-audit-agent/v3.0.0-rc5](./doc/audits/tools/nethermind-audit-agent/v3.0.0-rc5) |
 
+The v3.1.0 report identified **14 findings** (2 high, 2 medium, 10 low). All findings were reviewed by CMTA maintainers; 7 were assessed as invalid and 7 were acknowledged as design choices. No finding required a code fix.
 
+| N° | Title | Severity | Validity |
+|----|-------|----------|----------|
+| 1 | Partial-freeze not enforced on transfer path | High | Invalid |
+| 2 | Unprotected `initialize()` allows front-running of proxy initialization | High | Invalid |
+| 3 | Missing spender validation in transfer check function | Medium | Design choice |
+| 4 | Missing contract validation for RuleEngine address | Medium | Design choice |
+| 5 | Transfers ignore pause/deactivation in `CMTATBaseCommon` | Low | Design choice |
+| 6 | Transfers to frozen recipients possible in `CMTATBaseCommon.transfer()` | Low | Design choice |
+| 7 | Reentrancy window between unfreeze and balance update | Low | Invalid |
+| 8 | `canTransfer`/`canTransferFrom` can return `true` when transfer would revert | Low | Design choice |
+| 9 | SnapshotEngine hook bypassed in `_update` | Low | Design choice |
+| 10 | RuleEngine spender hardcoded to `address(0)` for minter-initiated transfers | Low | Invalid |
+| 11 | Forced transfers still enforced by standard validation | Low | Invalid |
+| 12 | Inconsistent deactivation handling between `canTransfer()` and `detectTransferRestriction()` | Low | Invalid |
+| 13 | `approve` not protected by pause modifier | Low | Fixed in v3.2.0 (full variants); Light version by design |
+| 14 | ERC2771 forwarder set via constructor in upgradeable deployments | Low | Invalid |
+
+A detailed response to each finding is available in [CMTAT_AuditAgent_Report_Comment_v3.1.0.md](./doc/audits/tools/nethermind-audit-agent/v3.1.0/CMTAT_AuditAgent_Report_Comment_v3.1.0.md).
+
+#### [Wake Arena](https://ackee.xyz) (Ackee Blockchain Security)
+
+Here are the reports produced by [Wake Arena](https://ackee.xyz), an automated AI vulnerability analysis tool developed by Ackee Blockchain Security:
+
+| Version      | File                                                         |
+| ------------ | ------------------------------------------------------------ |
+| v3.2.0-rc2   | [Wake Arena Report - CMTA: CMTAT-v3.2.0-rc2](./doc/audits/tools/ackee-wake-arena/Wake%20Arena%20Report%20-%20CMTA_%20CMTAT-v3.2.0-rc2.pdf) |
+
+> Ackee Blockchain Security, Wake Arena AI Report \| CMTA: CMTAT, February 10, 2026 12:24 UTC.
+
+The report (v3.2.0-rc2, February 10, 2026) identified **6 findings** (0 critical, 0 high, 3 medium, 2 low, 1 info):
+
+| ID | Title | Impact | Status |
+|----|-------|--------|--------|
+| M1 | Double invocation of compliance hook in `_minterTransferOverride` | Medium | Fixed |
+| M2 | Double invocation of compliance hook in `_burnOverride` | Medium | Fixed |
+| M3 | Double invocation of compliance hook in `_mintOverride` | Medium | Fixed |
+| L1 | Misleading `Spend` event emitted on `transferFrom` when allowance is infinite | Low | Acknowledged (comment added) |
+| L2 | Unmitigated ERC20 `approve` allowance change race condition | Low | Acknowledged – won't fix |
+| I1 | Documentation mismatch: `_authorizeSelfBurn` comment referenced wrong role | Info | Fixed |
+
+A detailed feedback and response to each finding is available in [CMTAT-wake-arena-feedback.md](./doc/audits/tools/ackee-wake-arena/CMTAT-wake-arena-feedback.md).
 
 ### Test
 
@@ -2815,7 +2859,13 @@ A code coverage is available in [index.html](./doc/test/coverage/index.html).
 
 ## Usage
 
-More details are available in the file
+More details are available in the file [USAGE.md](./doc/USAGE.md)
+
+### **Use CMTAT in Your Project** 
+
+f you want to use CMTAT, we recommend including it as a library via a [GitHub submodule](https://www.atlassian.com/git/tutorials/git-submodule) rather than creating a fork.
+
+This approach keeps your changes separate from the upstream CMTAT codebase and makes it easier to upgrade to newer versions. Updating a submodule is generally cleaner and more straightforward than maintaining a fork.
 
 ### Solidity style guideline
 

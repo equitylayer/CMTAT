@@ -14,6 +14,14 @@ git submodule add https://github.com/CMTA/CMTAT
 
 You can find example of using CMTAT as a github submodule in following repositories: [SnapshotEngine](https://github.com/CMTA/SnapshotEngine) or [CMTAT Factory](https://github.com/CMTA/CMTATFactory)
 
+## Using CMTAT
+
+If you want to use CMTAT, we recommend to use CMTAT as a library through GitHub submodule instead of a fork
+
+This would make it easier to keep your changes separate from the upstream CMTAT codebase. 
+
+It also simplifies upgrading to newer versions of CMTAT, since updating a submodule is typically cleaner and more straightforward than maintaining a fork.
+
 ## Opening an issue
 
 You can [open an issue] to suggest a feature, a difficulty you have or report a minor bug. For serious bugs in an audited version please do not open an issue, instead refer to our [security policy] for appropriate steps. See [SECURITY.md](./SECURITY.MD).
