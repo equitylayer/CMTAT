@@ -84,7 +84,7 @@ abstract contract CMTATBaseERC20CrossChain is ERC20CrossChainModule, CCIPModule,
     * @dev Check if the mint is valid
     */
     function _mintOverride(address account, uint256 value) internal virtual override(CMTATBaseCommon, ERC20MintModuleInternal) {
-       // _checkTransferred is called by _minzOverride
+       // _checkTransferred is called by _mintOverride
         CMTATBaseCommon._mintOverride(account, value);
     }
 
