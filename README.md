@@ -99,6 +99,10 @@ The CMTAT was initially designed for the digitalization of company shares. For S
 
 - 21.co (the original parent company of [21Shares](https://www.21shares.com/) acquired by FalconX) used CMTAT through their own [fork](https://github.com/amun/CMTAT) to create Wrapped Tokens on Ethereum. See for example Wrapped Bitcoin(21BTC) on [Etherscan](https://etherscan.io/token/0x3f67093dffd4f0af4f2918703c92b60acb7ad78b) and [their announcement](https://www.globenewswire.com/news-release/2024/09/03/2939399/0/en/21-co-Expands-its-Wrapped-Tokens-Lineup-with-the-Launch-of-Wrapped-Bitcoin-21BTC-on-Ethereum.html)
 
+#### Private DvP settlement
+
+- In 2026, [Seturion](https://group.boerse-stuttgart.com/en/seturion/) successfully achieved private DvP settlement of tokenized assets on a public blockchain stack while keeping all sensitive data confidential using the implementation of [CMTAT on Aztec](https://github.com/taurushq-io/private-CMTAT-aztec), an Ethereum Layer-2 network that employs zero-knowledge cryptography on protocol level to ensure fully programmable privacy. Read more [here](https://www.linkedin.com/posts/seturion_achieving-private-dvp-settlement-on-public-activity-7424387919538450433-OItI/). 
+
 ### Where CMTAT is mentioned?
 
 CMTAT is referenced in several reports. Although these reports do not reflect the most recent version, they already provide a good indication of potential use cases. The insights from these reports have also contributed to numerous improvements in CMTAT.
@@ -2823,7 +2827,7 @@ The v3.1.0 report identified **14 findings** (2 high, 2 medium, 10 low). All fin
 | 10 | RuleEngine spender hardcoded to `address(0)` for minter-initiated transfers | Low | Invalid |
 | 11 | Forced transfers still enforced by standard validation | Low | Invalid |
 | 12 | Inconsistent deactivation handling between `canTransfer()` and `detectTransferRestriction()` | Low | Invalid |
-| 13 | `approve` not protected by pause modifier | Low | Fixed in v3.2.0 (full variants); Light version by design |
+| 13 | `approve` not protected by pause modifier | Low | Design choice |
 | 14 | ERC2771 forwarder set via constructor in upgradeable deployments | Low | Invalid |
 
 A detailed response to each finding is available in [CMTAT_AuditAgent_Report_Comment_v3.1.0.md](./doc/audits/tools/nethermind-audit-agent/v3.1.0/CMTAT_AuditAgent_Report_Comment_v3.1.0.md).
